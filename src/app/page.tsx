@@ -1,5 +1,6 @@
 'use client'
 import { useState, useMemo } from 'react'
+import Link from 'next/link'
 import { ITEMS, CATEGORIES, Item, Category, Map } from '@/data/items'
 import ItemCard from '@/components/ItemCard'
 import ItemDetail from '@/components/ItemDetail'
@@ -58,7 +59,16 @@ export default function Home() {
               ITEM DATABASE
             </div>
           </div>
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+            <Link href="/map" style={{
+              fontSize: '11px', padding: '6px 14px',
+              border: '0.5px solid var(--border)', borderRadius: '4px',
+              color: 'var(--text-secondary)', textDecoration: 'none',
+              letterSpacing: '0.08em', transition: 'all 0.15s',
+              background: 'transparent',
+            }}>
+              🗺️ SPAWN MAPS
+            </Link>
             <span style={{ fontSize: '10px', color: 'var(--text-muted)', letterSpacing: '0.1em' }}>
               {filtered.length} / {ITEMS.length} ITEMS
             </span>
