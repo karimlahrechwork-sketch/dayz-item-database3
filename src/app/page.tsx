@@ -28,7 +28,7 @@ export default function Home() {
         return matchCat && matchMap && matchQ
       })
       .sort((a, b) => {
-        if (sortBy === 'damage') return (b.damage || 0) - (a.damage || 0)
+        if (sortBy === 'damage') return (b.healthDamage || 0) - (a.healthDamage || 0)
         if (sortBy === 'weight') return a.weight - b.weight
         if (sortBy === 'slots') return (b.slots || 0) - (a.slots || 0)
         return a.name.localeCompare(b.name)
