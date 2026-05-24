@@ -5,8 +5,8 @@ import Link from 'next/link'
 
 const EMPTY_ITEM: Omit<Item, 'id'> = {
   name: '', type: '', cat: 'weapons', icon: '⚔️',
-  damage: 0, weight: 0, slots: 0, ammo: '', tier: 1,
-  rarity: '', maps: [], spawns: [], desc: '', attachments: [],
+  healthDamage: 0, shockDamage: 0, rpm: 0, range: 0, recoil: 0, weight: 0, slots: 0, ammo: '', tier: 1,
+  rarity: '', maps: [], spawns: [], desc: '', attachments: [], wikiUrl: '',
 }
 
 const CATS: Category[] = ['weapons', 'gear', 'medical', 'food', 'tools']
@@ -198,8 +198,8 @@ export default function AdminPanel() {
               {form.cat === 'weapons' && (
                 <>
                   <div>
-                    <label style={labelStyle}>DAMAGE (0-100)</label>
-                    <input style={inputStyle} type="number" min="0" max="100" value={form.damage || 0} onChange={e => setForm(p => ({ ...p, damage: parseInt(e.target.value) || 0 }))} />
+                    <label style={labelStyle}>HEALTH DAMAGE / SHOT</label>
+                    <input style={inputStyle} type="number" min="0" max="100" value={form.healthDamage || 0} onChange={e => setForm(p => ({ ...p, healthDamage: parseInt(e.target.value) || 0 }))} />
                   </div>
                   <div>
                     <label style={labelStyle}>AMMO TYPE</label>
