@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-primary: #0a0c0a;
+  --bg-secondary: #111511;
+  --bg-card: #141a14;
+  --bg-card-hover: #1a221a;
+  --border: #2a352a;
+  --border-bright: #3a4d3a;
+  --accent: #4ade80;
+  --accent-dim: #22c55e;
+  --accent-glow: rgba(74, 222, 128, 0.15);
+  --text-primary: #d4e8d4;
+  --text-secondary: #7a9a7a;
+  --text-muted: #4a6a4a;
+  --red: #ef4444;
+  --amber: #f59e0b;
+  --blue: #3b82f6;
+  --purple: #a855f7;
+  --font-mono: 'Share Tech Mono', 'Courier New', monospace;
+  --font-display: 'Rajdhani', sans-serif;
+}
+
+html, body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+input, select, button {
+  font-family: var(--font-mono);
+}
+
+input:focus, select:focus {
+  outline: 1px solid var(--accent);
+}
