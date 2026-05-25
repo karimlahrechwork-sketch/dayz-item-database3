@@ -4,7 +4,7 @@ import { ITEMS, Item, Category, Map as DayZMap, Tier } from '@/data/items'
 import Link from 'next/link'
 
 const EMPTY_ITEM: Omit<Item, 'id'> = {
-  name: '', type: '', cat: 'weapons', icon: '⚔️', imageUrl: '',
+  name: '', type: '', cat: 'weapons', icon: '⚔️',
   tier: 1, rarity: '', maps: [], spawns: [], desc: '',
   inGameDesc: '', attachments: [], wikiUrl: '',
   characteristics: { weightGrams: 0, sizeRows: 1, sizeCols: 1 },
@@ -173,7 +173,6 @@ export default function AdminPanel() {
                 <div><label style={labelStyle}>ROWS</label><input style={inputStyle} type="number" min="1" max="10" value={form.characteristics.sizeRows} onChange={e => setForm(p => ({ ...p, characteristics: { ...p.characteristics, sizeRows: parseInt(e.target.value) || 1 } }))} /></div>
                 <div><label style={labelStyle}>COLS</label><input style={inputStyle} type="number" min="1" max="10" value={form.characteristics.sizeCols} onChange={e => setForm(p => ({ ...p, characteristics: { ...p.characteristics, sizeCols: parseInt(e.target.value) || 1 } }))} /></div>
               </div>
-              <div><label style={labelStyle}>WIKI IMAGE URL</label><input style={inputStyle} value={form.imageUrl || ''} onChange={e => setForm(p => ({ ...p, imageUrl: e.target.value }))} placeholder="https://static.wikia.nocookie.net/dayz/..." /></div>
               <div><label style={labelStyle}>WIKI PAGE URL</label><input style={inputStyle} value={form.wikiUrl} onChange={e => setForm(p => ({ ...p, wikiUrl: e.target.value }))} placeholder="https://dayz.fandom.com/wiki/..." /></div>
             </div>
 

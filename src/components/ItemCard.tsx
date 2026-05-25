@@ -1,5 +1,4 @@
 'use client'
-import { useState } from 'react'
 import { Item, TIER_LABELS, TIER_COLORS } from '@/data/items'
 
 interface Props {
@@ -37,7 +36,6 @@ function SpawnTag({ spawn }: { spawn: string }) {
 }
 
 export default function ItemCard({ item, selected, onClick }: Props) {
-  const [imgError, setImgError] = useState(false)
   const c = item.characteristics
   const p = item.performance
 
@@ -50,26 +48,26 @@ export default function ItemCard({ item, selected, onClick }: Props) {
         transition: 'all 0.15s', position: 'relative',
       }}
       onMouseEnter={e => { if (!selected) (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-bright)' }}
-      onMouseLeave={e => { if (!selected) (e.currentTarget as HTMLElement).style.borderColor = selected ? 'var(--accent)' : 'var(--border)' }}
+      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = selected ? 'var(--accent)' : 'var(--border)' }}
     >
       {selected && <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'var(--accent)', borderRadius: '6px 6px 0 0' }} />}
 
-      {/* Image + emoji */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-        <div style={{ width: '48px', height: '48px', borderRadius: '4px', background: 'var(--bg-secondary)', border: '0.5px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', position: 'relative' }}>
-          {item.imageUrl && !imgError ? (
-            <img src={item.imageUrl} alt={item.name} onError={() => setImgError(true)}
-              style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '4px' }} />
-          ) : (
-            <span style={{ fontSize: '24px' }}>{item.icon}</span>
-          )}
-          {item.imageUrl && !imgError && (
-            <span style={{ position: 'absolute', bottom: '1px', right: '2px', fontSize: '10px' }}>{item.icon}</span>
-          )}
+      {/* Icon + name row */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+        <div style={{
+          width: '44px', height: '44px', borderRadius: '6px', flexShrink: 0,
+          background: 'var(--bg-secondary)', border: '0.5px solid var(--border)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px',
+        }}>
+          {item.icon}
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.3, fontFamily: 'var(--font-display)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.name}</div>
-          <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.06em', textTransform: 'uppercase', marginTop: '1px' }}>{item.type}</div>
+          <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.3, fontFamily: 'var(--font-display)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {item.name}
+          </div>
+          <div style={{ fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.06em', textTransform: 'uppercase', marginTop: '1px' }}>
+            {item.type}
+          </div>
           <div style={{ fontSize: '9px', color: 'var(--text-muted)', marginTop: '2px' }}>
             {c.sizeRows}×{c.sizeCols} · {(c.weightGrams / 1000).toFixed(2)}kg
           </div>
@@ -78,7 +76,9 @@ export default function ItemCard({ item, selected, onClick }: Props) {
 
       {/* Tier + spawn tags */}
       <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginBottom: '8px' }}>
-        <span className={TIER_COLORS[item.tier]} style={{ fontSize: '9px', padding: '2px 6px', borderRadius: '3px', letterSpacing: '0.06em' }}>{TIER_LABELS[item.tier]}</span>
+        <span className={TIER_COLORS[item.tier]} style={{ fontSize: '9px', padding: '2px 6px', borderRadius: '3px', letterSpacing: '0.06em' }}>
+          {TIER_LABELS[item.tier]}
+        </span>
         {item.spawns.slice(0, 2).map(s => <SpawnTag key={s} spawn={s} />)}
       </div>
 
@@ -101,9 +101,9 @@ export default function ItemCard({ item, selected, onClick }: Props) {
       {item.cat === 'food' && c.waterContent !== undefined && c.waterContent > 0 && (
         <StatBar label="Water ml" value={c.waterContent} max={1000} color="var(--blue)" />
       )}
-      {(item.cat === 'medical') && (
-        <div style={{ fontSize: '10px', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-          {c.uses !== undefined ? `${c.uses} use${c.uses !== 1 ? 's' : ''}` : ''}
+      {item.cat === 'medical' && c.uses !== undefined && (
+        <div style={{ fontSize: '10px', color: 'var(--text-secondary)', marginTop: '4px' }}>
+          {c.uses} use{c.uses !== 1 ? 's' : ''} per item
         </div>
       )}
     </div>
