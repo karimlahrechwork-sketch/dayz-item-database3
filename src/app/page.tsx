@@ -22,15 +22,15 @@ export default function Home() {
         const matchMap = mapFilter === 'all' || item.maps.includes(mapFilter as Map)
         const matchQ = !q || item.name.toLowerCase().includes(q)
           || item.type.toLowerCase().includes(q)
-          || (item.ammo || '').toLowerCase().includes(q)
+          || (item.characteristics.fireModes?.join(' ') || '').toLowerCase().includes(q)
           || item.spawns.some(s => s.toLowerCase().includes(q))
           || item.rarity.toLowerCase().includes(q)
         return matchCat && matchMap && matchQ
       })
       .sort((a, b) => {
-        if (sortBy === 'damage') return (b.healthDamage || 0) - (a.healthDamage || 0)
-        if (sortBy === 'weight') return a.weight - b.weight
-        if (sortBy === 'slots') return (b.slots || 0) - (a.slots || 0)
+        if (sortBy === 'damage') return (b.performance?.healthDamage || 0) - (a.performance?.healthDamage || 0)
+        if (sortBy === 'weight') return a.characteristics.weightGrams - b.characteristics.weightGrams
+        if (sortBy === 'slots') return (b.characteristics.sizeRows * b.characteristics.sizeCols) - (a.characteristics.sizeRows * a.characteristics.sizeCols)
         return a.name.localeCompare(b.name)
       })
   }, [search, activeCat, mapFilter, sortBy])
